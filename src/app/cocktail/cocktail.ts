@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { CocktailData } from '../data.service';
 
 @Component({
   selector: 'app-cocktail',
@@ -7,5 +8,5 @@ import { Component, Input } from '@angular/core';
   styleUrl: './cocktail.css',
 })
 export class Cocktail {
-  @Input() cocktail: any;
+  @Input() cocktail: CocktailData = { id: 0, name: '', description: '', img: '', alcohol: false };
 }

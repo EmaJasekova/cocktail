@@ -1,12 +1,24 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { Header } from './header/header';
+import { Body } from './body/body';
+import { Footer } from './footer/footer';
+import { DataService } from './data.service';
+import type { CocktailData } from './data.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, Header, Body, Footer],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('cocktail');
+  protected readonly title = 'cocktail';
+  protected cocktails: CocktailData[] = [];
+
+  private readonly dataService = inject(DataService);
+
+  constructor() {
+    this.dataService.getCocktails().subscribe((data) => (this.cocktails = data));
+  }
 }
