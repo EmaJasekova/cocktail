@@ -1,0 +1,23 @@
+<form (ngSubmit)="submitCocktail()" [formGroup]="cocktailForm">
+    <div>
+        <label>Name:</label>
+        <input [formControl]="nameControl">
+    </div>
+
+    <div>
+        <label>Description:</label>
+        <input [formControl]="descriptionControl">
+    </div>
+
+    <div>
+        <label>Is Alcoholic:</label>
+        <input type="checkbox" [formControl]="isAlcoholicControl">
+    </div>
+
+    <div>
+        <label>Image:</label>
+        <input [formControl]="imageControl">
+    </div>
+    
+    <button [disabled]="cocktailForm.invalid">Add Cocktail</button>
+</form>
