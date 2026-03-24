@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { FormGroup, ReactiveFormsModule, FormControl } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-search-bar',
@@ -11,7 +11,11 @@ export class SearchBar {
   searchForm: FormGroup;
   @Output() searchSubmitted = new EventEmitter<string>();
   
-  searchControl = new FormControl<string>('', { nonNullable: true });
+  searchControl = new FormControl<string>('',
+    {
+      validators: [Validators.minLength(3), Validators.pattern('^[a-zA-Z ]*$')],
+      nonNullable: true
+    });
 
   constructor() {
     this.searchForm = new FormGroup({

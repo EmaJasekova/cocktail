@@ -2,5 +2,5 @@
     <div>
         <input [formControl]="searchControl">
     </div>
-    <button>Search</button>
+    <button [disabled]="searchControl.invalid">Search</button>
 </form>
