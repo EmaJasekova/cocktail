@@ -1,21 +1,35 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { CocktailsList } from '../cocktails-list/cocktails-list';
 import { DataService, type CocktailData } from '../data.service';
+import { NavBar } from '../nav-bar/nav-bar';
 
 @Component({
   selector: 'app-home',
-  imports: [CocktailsList],
+  imports: [CocktailsList, NavBar],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
 export class Home {
   dataservice = inject(DataService);
-  cocktails: CocktailData[] = [];
+
+  allCocktails: CocktailData[] = [];
+  filteredCocktails: CocktailData[] = [];
 
   constructor() {
     this.dataservice.getCocktails()
-    .subscribe(cocktail => {
-      this.cocktails = cocktail;
+    .subscribe(cocktails => {
+      this.filteredCocktails = cocktails;
+      this.allCocktails = cocktails;
     });
+  }
+  
+  onLetterClicked(letter: string) {
+    console.log('Letter clicked in Home component:', letter);
+
+    this.filteredCocktails = this.allCocktails.filter(cocktail => cocktail.name.startsWith(letter));
+  }
+
+  onAllClicked() {
+    this.filteredCocktails = this.allCocktails;
   }
 }

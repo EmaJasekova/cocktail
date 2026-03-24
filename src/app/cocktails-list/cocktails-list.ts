@@ -1,7 +1,6 @@
 import { Component, Input, inject } from '@angular/core';
 import { Cocktail } from '../cocktail/cocktail';
 import type { CocktailData } from '../data.service';
-import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-cocktails-list',
@@ -11,6 +10,7 @@ import { DataService } from '../data.service';
 })
 export class CocktailsList {
   @Input() cocktails: CocktailData[] = [];
+
   cocktailNameClicked: string = '';
 
   onCocktailClicked(event: string) {

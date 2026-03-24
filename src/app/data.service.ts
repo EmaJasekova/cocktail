@@ -36,5 +36,4 @@ export class DataService {
   getNonAlcoholicCocktails(): Observable<CocktailData[]> {
     return of(this.cocktails.filter((c) => !c.alcohol));
   }
-
 }

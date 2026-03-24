@@ -1,8 +1,13 @@
+<app-nav-bar
+(letterClicked)="onLetterClicked($event)"
+(allClicked)="onAllClicked()">
+</app-nav-bar>
+
 <div class="padding-25 bg-color-1">
     <div class="row">
         <div class="col-12 d-flex justify-content-center f-large padding-b-25">
             <span class="titre">All Cocktails</span>
         </div>
-        <app-cocktails-list [cocktails]="cocktails"></app-cocktails-list>
+        <app-cocktails-list [cocktails]="filteredCocktails"></app-cocktails-list>
     </div>
 </div>
