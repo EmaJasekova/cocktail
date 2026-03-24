@@ -36,4 +36,9 @@ export class DataService {
   getNonAlcoholicCocktails(): Observable<CocktailData[]> {
     return of(this.cocktails.filter((c) => !c.alcohol));
   }
+
+  addCocktail(cocktail: CocktailData): void {
+    cocktail.id = this.cocktails.length + 1;
+    this.cocktails.push(cocktail);
+  }
 }

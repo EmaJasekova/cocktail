@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Cocktail } from '../cocktail/cocktail';
+import { CocktailData, DataService } from '../data.service';
 
 @Component({
   selector: 'app-add-cocktail',
@@ -9,14 +10,14 @@ import { Cocktail } from '../cocktail/cocktail';
   styleUrl: './add-cocktail.css',
 })
 export class AddCocktail {
+  dataservice = inject(DataService);
+  
   cocktailForm: FormGroup;
 
   nameControl = new FormControl<string>('', { nonNullable: true });
   descriptionControl = new FormControl<string>('', { nonNullable: true });
   isAlcoholicControl = new FormControl<boolean>(false);
   imageControl = new FormControl<string>('', { nonNullable: true });
-
-  @Output() cocktailAdded = new EventEmitter<Cocktail>();
 
   constructor() {
     this.cocktailForm = new FormGroup
@@ -33,11 +34,12 @@ export class AddCocktail {
       const cocktailData = this.cocktailForm.value;
       console.log('Cocktail Data:', cocktailData);
       
-      const newCocktail: Cocktail = {
+      const newCocktail: CocktailData = {
         ...cocktailData,
         id: 0
       };
-      this.cocktailAdded.emit(newCocktail);
+
+      this.dataservice.addCocktail(newCocktail);
     }
   }
 }
