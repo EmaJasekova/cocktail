@@ -1,5 +1,6 @@
 @for (cocktail of cocktails; track cocktail.id) {
     <app-cocktail
         [cocktail]="cocktail"
+        (cocktailClicked)="onCocktailClicked($event)"
     />
 }

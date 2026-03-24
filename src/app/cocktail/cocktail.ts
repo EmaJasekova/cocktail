@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CocktailData } from '../data.service';
 
 @Component({
@@ -9,4 +9,9 @@ import { CocktailData } from '../data.service';
 })
 export class Cocktail {
   @Input() cocktail: CocktailData = { id: 0, name: '', description: '', img: '', alcohol: false };
+  @Output() cocktailClicked = new EventEmitter<string>();
+
+  onClicked(){
+    this.cocktailClicked.emit(this.cocktail.name);
+  }
 }

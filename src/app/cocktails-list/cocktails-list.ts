@@ -10,4 +10,9 @@ import type { CocktailData } from '../data.service';
 })
 export class CocktailsList {
   @Input() cocktails: CocktailData[] = [];
+  cocktailNameClicked: string = '';
+
+  onCocktailClicked(event: string) {
+    console.log('Cocktail clicked:', event);
+  }
 }
