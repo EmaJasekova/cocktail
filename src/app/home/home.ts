@@ -3,12 +3,12 @@ import { CocktailsList } from '../cocktails-list/cocktails-list';
 import { DataService, type CocktailData } from '../data.service';
 
 @Component({
-  selector: 'app-body',
+  selector: 'app-home',
   imports: [CocktailsList],
-  templateUrl: './body.html',
-  styleUrl: './body.css',
+  templateUrl: './home.html',
+  styleUrl: './home.css',
 })
-export class Body {
+export class Home {
   dataservice = inject(DataService);
   cocktails: CocktailData[] = [];
 
