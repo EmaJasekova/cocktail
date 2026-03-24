@@ -15,10 +15,4 @@ import type { CocktailData } from './data.service';
 export class App {
   protected readonly title = 'cocktail';
   protected cocktails: CocktailData[] = [];
-
-  private readonly dataService = inject(DataService);
-
-  constructor() {
-    this.dataService.getCocktails().subscribe((data) => (this.cocktails = data));
-  }
 }
