@@ -29,11 +29,11 @@ export class DataService {
     return of(this.cocktails);
   }
 
-  getCocktailsWith(): Observable<CocktailData[]> {
+  getAlcoholicCocktails(): Observable<CocktailData[]> {
     return of(this.cocktails.filter((c) => c.alcohol));
   }
 
-  getCocktailsWithout(): Observable<CocktailData[]> {
+  getNonAlcoholicCocktails(): Observable<CocktailData[]> {
     return of(this.cocktails.filter((c) => !c.alcohol));
   }
 
