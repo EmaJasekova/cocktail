@@ -1,6 +1,5 @@
-import { Component, EventEmitter, inject, Output } from '@angular/core';
+import { Component, inject, Output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { Cocktail } from '../cocktail/cocktail';
 import { CocktailData, DataService } from '../data.service';
 
 @Component({

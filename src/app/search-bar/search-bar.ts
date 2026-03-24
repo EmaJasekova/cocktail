@@ -25,15 +25,16 @@ export class SearchBar {
     });
 
     this.subscription = this.searchControl.valueChanges.subscribe(
-      (data) => console.log('Form value changed:', data)
+      (searchTerm) => 
+        this.searchSubmitted.emit(searchTerm)
     );
   }
 
-  submitSearch() {
-    const searchTerm = this.searchControl.value;
-    console.log('Search term submitted:', searchTerm);
-    this.searchSubmitted.emit(searchTerm);
-  }
+  // submitSearch() {
+  //   const searchTerm = this.searchControl.value;
+  //   console.log('Search term submitted:', searchTerm);
+  //   this.searchSubmitted.emit(searchTerm);
+  // }
   
   ngOnDestroy() {
     this.subscription.unsubscribe()
