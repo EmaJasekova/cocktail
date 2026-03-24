@@ -1,5 +1,6 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { FormGroup, ReactiveFormsModule, FormControl, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-search-bar',
@@ -9,6 +10,7 @@ import { FormGroup, ReactiveFormsModule, FormControl, Validators } from '@angula
 })
 export class SearchBar {
   searchForm: FormGroup;
+  subscription: Subscription;
   @Output() searchSubmitted = new EventEmitter<string>();
   
   searchControl = new FormControl<string>('',
@@ -21,11 +23,19 @@ export class SearchBar {
     this.searchForm = new FormGroup({
       search: this.searchControl
     });
+
+    this.subscription = this.searchControl.valueChanges.subscribe(
+      (data) => console.log('Form value changed:', data)
+    );
   }
 
   submitSearch() {
     const searchTerm = this.searchControl.value;
     console.log('Search term submitted:', searchTerm);
     this.searchSubmitted.emit(searchTerm);
+  }
+  
+  ngOnDestroy() {
+    this.subscription.unsubscribe()
   }
 }
