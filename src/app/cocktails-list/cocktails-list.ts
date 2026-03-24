@@ -10,18 +10,8 @@ import { DataService } from '../data.service';
   styleUrl: './cocktails-list.css',
 })
 export class CocktailsList {
-  dataservice = inject(DataService);
-  cocktails: CocktailData[] = [];
+  @Input() cocktails: CocktailData[] = [];
   cocktailNameClicked: string = '';
-
-  ngOnInit() {
-    this.dataservice.getCocktails()
-    .subscribe(
-      cocktails => {
-        this.cocktails = cocktails;
-      }
-    );
-  }
 
   onCocktailClicked(event: string) {
     console.log('Cocktail clicked:', event);

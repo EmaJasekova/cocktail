@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CocktailsList } from '../cocktails-list/cocktails-list';
-import type { CocktailData } from '../data.service';
+import { DataService, type CocktailData } from '../data.service';
 
 @Component({
   selector: 'app-body',
@@ -9,5 +9,13 @@ import type { CocktailData } from '../data.service';
   styleUrl: './body.css',
 })
 export class Body {
-  @Input() cocktails: CocktailData[] = [];
+  dataservice = inject(DataService);
+  cocktails: CocktailData[] = [];
+
+  constructor() {
+    this.dataservice.getCocktails()
+    .subscribe(cocktail => {
+      this.cocktails = cocktail;
+    });
+  }
 }

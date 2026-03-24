@@ -1,12 +1,8 @@
-<content>
-  <div class="padding-25 bg-color-1">
-      <div class="row">
-          <div class="col-12 d-flex justify-content-center f-large padding-b-25">
-              <span class="titre">Tous les cocktails</span>
-          </div>
-          <div class="row">
-              <app-cocktails-list></app-cocktails-list>
-          </div>
-      </div>
-  </div>
-</content>
+<div class="padding-25 bg-color-1">
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center f-large padding-b-25">
+            <span class="titre">All Cocktails</span>
+        </div>
+        <app-cocktails-list [cocktails]="cocktails"></app-cocktails-list>
+    </div>
+</div>
