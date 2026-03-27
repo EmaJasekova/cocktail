@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { interval, Subscription, map, filter, take, range, toArray } from 'rxjs';
+import { ProducerComponent } from '../producer-component/producer-component';
+import { ListenerComponent } from '../listener-component/listener-component';
 
 @Component({
   selector: 'app-observable-page',
-  imports: [],
+  imports: [ProducerComponent, ListenerComponent],
   templateUrl: './observable-page.html',
   styleUrl: './observable-page.css',
 })

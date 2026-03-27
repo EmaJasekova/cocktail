@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
-export interface Cocktail {
+export interface CocktailData {
   id: number;
   name: string;
   description: string;
@@ -26,7 +26,7 @@ export class DataService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=m';
 
-  getCocktails(): Observable<Cocktail[]> {
+  getCocktails(): Observable<CocktailData[]> {
     return this.http
       .get<{ drinks: CocktailDto[] | null }>(this.apiUrl)
       .pipe(
@@ -34,26 +34,26 @@ export class DataService {
       );
   }
 
-  getAlcoholicCocktails(): Observable<Cocktail[]> {
+  getAlcoholicCocktails(): Observable<CocktailData[]> {
     return this.getCocktails().pipe(
       map((cocktails) => cocktails.filter((c) => c.alcohol))
     );
   }
 
-  getNonAlcoholicCocktails(): Observable<Cocktail[]> {
+  getNonAlcoholicCocktails(): Observable<CocktailData[]> {
     return this.getCocktails().pipe(
       map((cocktails) => cocktails.filter((c) => !c.alcohol))
     );
   }
 
-  addCocktail(cocktail: Cocktail): Observable<Cocktail> {
+  addCocktail(cocktail: CocktailData): Observable<CocktailData> {
     return new Observable((observer) => {
       observer.next(cocktail);
       observer.complete();
     });
   }
 
-  private mapCocktail(drink: CocktailDto): Cocktail {
+  private mapCocktail(drink: CocktailDto): CocktailData {
     return {
       id: Number.parseInt(drink.idDrink, 10),
       name: drink.strDrink,
