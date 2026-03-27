@@ -9,15 +9,20 @@ import { interval, Subscription } from 'rxjs';
 })
 export class ObservablePage {
   value: number = 0;
-  subscription?: Subscription;
+  subscription: Subscription | null = null;
 
   startObservable() {
-    this.subscription = interval(1000).subscribe((value) => {
-      this.value = value;
-    });
+    if (!this.subscription) {
+      this.subscription = interval(1000).subscribe((value) => {
+        this.value = value;
+      });
+    }
   }
 
   stopObservable() {
-    this.subscription?.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+      this.subscription = null; // or we can use the closed property
+    }
   }
 }
