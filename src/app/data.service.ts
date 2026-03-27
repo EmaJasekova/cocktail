@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
-export interface CocktailData {
+export interface Cocktail {
   id: number;
   name: string;
   description: string;
@@ -11,7 +11,7 @@ export interface CocktailData {
   alcohol: boolean;
 }
 
-interface CocktailDbDrink {
+interface CocktailDto {
   idDrink: string;
   strDrink: string;
   strInstructions: string | null;
@@ -26,34 +26,34 @@ export class DataService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=m';
 
-  getCocktails(): Observable<CocktailData[]> {
+  getCocktails(): Observable<Cocktail[]> {
     return this.http
-      .get<{ drinks: CocktailDbDrink[] | null }>(this.apiUrl)
+      .get<{ drinks: CocktailDto[] | null }>(this.apiUrl)
       .pipe(
-        map((response) => (response.drinks ?? []).map(this.mapDrink))
+        map((response) => (response.drinks ?? []).map(this.mapCocktail))
       );
   }
 
-  getAlcoholicCocktails(): Observable<CocktailData[]> {
+  getAlcoholicCocktails(): Observable<Cocktail[]> {
     return this.getCocktails().pipe(
       map((cocktails) => cocktails.filter((c) => c.alcohol))
     );
   }
 
-  getNonAlcoholicCocktails(): Observable<CocktailData[]> {
+  getNonAlcoholicCocktails(): Observable<Cocktail[]> {
     return this.getCocktails().pipe(
       map((cocktails) => cocktails.filter((c) => !c.alcohol))
     );
   }
 
-  addCocktail(cocktail: CocktailData): Observable<CocktailData> {
+  addCocktail(cocktail: Cocktail): Observable<Cocktail> {
     return new Observable((observer) => {
       observer.next(cocktail);
       observer.complete();
     });
   }
 
-  private mapDrink(drink: CocktailDbDrink): CocktailData {
+  private mapCocktail(drink: CocktailDto): Cocktail {
     return {
       id: Number.parseInt(drink.idDrink, 10),
       name: drink.strDrink,
