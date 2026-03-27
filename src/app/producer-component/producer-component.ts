@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
+import { CommunicationService } from '../communication.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-producer-component',
@@ -8,6 +10,7 @@ import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
   styleUrl: './producer-component.css',
 })
 export class ProducerComponent {
+  communicationService = inject(CommunicationService);
   formGroup: FormGroup;
   formControl = new FormControl<string>("", { nonNullable: true });
 
@@ -18,6 +21,10 @@ export class ProducerComponent {
   }
 
   sendData(data: string) {
-    console.log("Data sent: " + data);
+    this.communicationService.sendData(data);
+  }
+
+  getStream(): Observable<string> {
+    return this.communicationService.getStream();
   }
 }

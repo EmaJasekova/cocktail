@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { CommunicationService } from '../communication.service';
 
 @Component({
   selector: 'app-listener-component',
@@ -6,4 +7,12 @@ import { Component } from '@angular/core';
   templateUrl: './listener-component.html',
   styleUrl: './listener-component.css',
 })
-export class ListenerComponent {}
+export class ListenerComponent implements OnInit {
+  communicationService = inject(CommunicationService);
+
+  ngOnInit() {
+    this.communicationService.getStream().subscribe((data) => {
+      console.log("Data received: " + data);
+    });
+  }
+}
