@@ -4,6 +4,7 @@ import { Alcoholic } from './alcoholic/alcoholic';
 import { NonAlcoholic } from './non-alcoholic/non-alcoholic';
 import { About } from './about/about';
 import { AddCocktail } from './add-cocktail/add-cocktail';
+import { ObservablePage } from './observable-page/observable-page';
 
 export const routes: Routes = [
     { "path": "", pathMatch: "full", redirectTo: "/home" },
@@ -11,5 +12,6 @@ export const routes: Routes = [
     { "path": "about", component: About },
     { "path": "alcoholic", component: Alcoholic },
     { "path": "nonalcoholic", component: NonAlcoholic },
-    { "path": "add-cocktail", component: AddCocktail }
+    { "path": "add-cocktail", component: AddCocktail },
+    { "path": "app-observable-page", component: ObservablePage }
 ];
