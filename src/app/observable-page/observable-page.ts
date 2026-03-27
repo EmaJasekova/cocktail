@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { interval, Subscription, map, filter } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { interval, Subscription, map, filter, take, range, toArray } from 'rxjs';
 
 @Component({
   selector: 'app-observable-page',
@@ -7,16 +7,27 @@ import { interval, Subscription, map, filter } from 'rxjs';
   templateUrl: './observable-page.html',
   styleUrl: './observable-page.css',
 })
-export class ObservablePage {
+export class ObservablePage implements OnInit {
   value: string = "Value: 0";
-  subscription: Subscription | null = null;
+  letters: string[] = [];
+  stopwatch: Subscription | null = null;
+
+  ngOnInit() {
+    range(0, 26).pipe(
+      map((value: number) : string => String.fromCharCode(65 + value)),
+      toArray()
+    ).subscribe({
+      next: (value: string[]) => this.letters = value
+    })
+  }
 
   startObservable() {
-    if (!this.subscription) {
-      this.subscription = interval(1000).pipe(
-        filter((value: number) => value > 2),
+    if (!this.stopwatch) {
+      this.stopwatch = interval(1000).pipe(
+        filter((value: number) : boolean => value > 2),
+        take(2),
         map((value: number) : number => value * 10),
-        map((value: number) : string => "Value: " + value)
+        map((value: number) : string => "Value: " + value),
       ).subscribe({
         next: (value: string) => this.value = value
       });
@@ -24,9 +35,9 @@ export class ObservablePage {
   }
 
   stopObservable() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-      this.subscription = null; // or we can use the closed property
+    if (this.stopwatch) {
+      this.stopwatch.unsubscribe();
+      this.stopwatch = null; // or we can use the closed property
     }
   }
 }

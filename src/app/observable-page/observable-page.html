@@ -1,3 +1,10 @@
-<button (click)="startObservable()" [disabled] = "subscription !== null">Start</button>
-<button (click)="stopObservable()" [disabled] = "subscription === null">Stop</button>
+<button (click)="startObservable()" [disabled] = "stopwatch !== null">Start</button>
+<button (click)="stopObservable()" [disabled] = "stopwatch === null">Stop</button>
+
 <p>{{ value }}</p>
+
+<div style="display: flex;">
+    @for (letter of letters; track $index) {
+        <p>{{ letter }}</p>
+    }
+</div>
